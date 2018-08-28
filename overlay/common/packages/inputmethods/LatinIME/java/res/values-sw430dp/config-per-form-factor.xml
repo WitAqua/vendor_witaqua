@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) WitAqua
+     SPDX-License-Identifier: Apache-2.0
+-->
+
+<!-- Configuration values for Large Phone. -->
+<resources>
+    <bool name="config_default_sound_enabled">true</bool>
+</resources>
