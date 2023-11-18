@@ -57,3 +57,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     vendor/lineage/prebuilt/common/etc/init/init.witaqua.fonts.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.witaqua.fonts.rc
+
+# Cloned app exemption
+ PRODUCT_COPY_FILES += \
+     vendor/lineage/prebuilt/common/etc/sysconfig/preinstalled-packages-platform-witaqua-product.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/preinstalled-packages-platform-witaqua-product.xml
