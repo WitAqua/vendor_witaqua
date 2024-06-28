@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Copyright (C) 2023-2024 crDroid Android Project
 # Copyright (C) 2024 WitAqua
 #
@@ -287,7 +287,7 @@ def main():
         fallback_branch = detect_revision(repository)
         manufacturer = repo_name.replace("android_device_", "").replace("_" + device, "")
         repo_path = "device/%s/%s" % (manufacturer, device)
-        adding = [{'repository': "crdroidandroid/" + repo_name, 'target_path': repo_path}]
+        adding = [{'repository': "WitAqua-Devices/" + repo_name, 'target_path': repo_path}]
 
         add_to_manifest(adding, fallback_branch)
 
