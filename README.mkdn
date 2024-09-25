@@ -4,7 +4,7 @@ WitAqua
 Getting started
 ---------------
 
-Please see the [WitAqua](https://github.com/WitAqua/manifest/blob/14/README.mkdn) for building instructions, by device.
+Please see the [WitAqua](https://github.com/WitAqua/manifest/blob/15/README.mkdn) for building instructions, by device.
 
 
 Submitting patches

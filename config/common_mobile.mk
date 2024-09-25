@@ -1,12 +1,12 @@
 # Inherit common mobile Lineage stuff
-$(call inherit-product, vendor/lineage/config/common.mk)
+$(call inherit-product, vendor/witaqua/config/common.mk)
 
 # Include AOSP audio files
 $(call inherit-product-if-exists, frameworks/base/data/sounds/AudioPackage14.mk)
-include vendor/lineage/config/aosp_audio.mk
+include vendor/witaqua/config/aosp_audio.mk
 
 # Include Lineage audio files
-include vendor/lineage/config/lineage_audio.mk
+include vendor/witaqua/config/witaqua_audio.mk
 
 # Default notification/alarm sounds
 PRODUCT_PRODUCT_PROPERTIES += \
@@ -21,20 +21,20 @@ PRODUCT_PACKAGES += \
 
 ifeq ($(PRODUCT_TYPE), go)
 PRODUCT_PACKAGES += \
-    TrebuchetQuickStepGo
+    WitAquaLauncherQuickStepGo
 
 PRODUCT_DEXPREOPT_SPEED_APPS += \
-    TrebuchetQuickStepGo
+    WitAquaLauncherQuickStepGo
 else
 PRODUCT_PACKAGES += \
-    TrebuchetQuickStep
+    WitAquaLauncherQuickStep
 
 PRODUCT_DEXPREOPT_SPEED_APPS += \
-    TrebuchetQuickStep
+    WitAquaLauncherQuickStep
 endif
 
 PRODUCT_PACKAGES += \
-    TrebuchetOverlay
+    WitAquaLauncherOverlay
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -42,8 +42,8 @@ PRODUCT_PACKAGES += \
 
 ifneq ($(WITH_LINEAGE_CHARGER),false)
 PRODUCT_PACKAGES += \
-    lineage_charger_animation \
-    lineage_charger_animation_vendor
+    witaqua_charger_animation \
+    witaqua_charger_animation_vendor
 endif
 
 # Customizations
