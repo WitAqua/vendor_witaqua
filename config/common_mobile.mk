@@ -85,7 +85,7 @@ PRODUCT_PACKAGES += \
 
 # Legal
 PRODUCT_SYSTEM_PROPERTIES += \
-    ro.lineagelegal.url=https://lineageos.org/legal
+    ro.lineagelegal.url=https://witaqua.tokyo/legal
 
 # Media
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
