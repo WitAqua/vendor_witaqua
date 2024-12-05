@@ -312,6 +312,12 @@ else:
         
             repo_path = "device/%s/%s" % (manufacturer, device)
             revision = get_default_or_fallback_revision(repo_name)
+            if revision == "":
+                # Some devices have the same codename but shipped a long time ago and may not have
+                # a current branch set up.
+                # Continue looking up all repositories until a match is found or no repos are left
+                # to check.
+                continue
 
             device_repository = {'repository':repo_name,'target_path':repo_path,'branch':revision}
             add_to_manifest([device_repository])
