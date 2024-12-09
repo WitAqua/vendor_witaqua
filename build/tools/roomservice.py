@@ -191,7 +191,12 @@ def add_to_manifest(repositories):
     for repository in repositories:
         repo_name = repository['repository']
         repo_target = repository['target_path']
-        repo_revision = repository['branch']
+        repo_remote = repository.get('remote','witaqua-devices')
+        repo_revision = repository.get('revision')
+
+        if repo_remote != "witaqua-devices" and not repo_remote.startswith("aosp-"):
+            repo_revision = repo_revision or repository.get('branch') or get_default_or_fallback_revision(repo_name)
+
         print('Checking if %s is fetched from %s' % (repo_target, repo_name))
         if is_in_manifest(repo_target):
             print('%s already fetched to %s' % (repo_name, repo_target))
@@ -203,7 +208,7 @@ def add_to_manifest(repositories):
             "remote": repo_remote,
         }
 
-        if repo_revision and not (repo_remote == "evo-devices" and repo_revision == get_default_or_fallback_revision(repo_name)):
+        if repo_revision and not (repo_remote == "witaqua-devices" and repo_revision == get_default_or_fallback_revision(repo_name)):
             project_attrib["revision"] = repo_revision
 
         project = ElementTree.Element("project", attrib=project_attrib)
@@ -219,9 +224,8 @@ def add_to_manifest(repositories):
     raw_xml = ElementTree.tostring(lm).decode()
     raw_xml = '<?xml version="1.0" encoding="UTF-8"?>\n' + raw_xml
 
-    f = open('.repo/local_manifests/roomservice.xml', 'w')
-    f.write(raw_xml)
-    f.close()
+    with open('.repo/local_manifests/roomservice.xml', 'w') as f:
+        f.write(raw_xml)
 
 def fetch_dependencies(repo_path):
     print('Looking for dependencies in %s' % repo_path)
