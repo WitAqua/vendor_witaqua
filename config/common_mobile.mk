@@ -8,10 +8,13 @@ include vendor/lineage/config/aosp_audio.mk
 # Include Lineage audio files
 include vendor/lineage/config/lineage_audio.mk
 
+# Include WitAqua audio files
+include vendor/lineage/config/witaqua_audio.mk
+
 # Default notification/alarm sounds
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.config.notification_sound=Argon.ogg \
-    ro.config.alarm_alert=Hassium.ogg
+    ro.config.alarm_alert=Birdland.m4a
 
 # Apps
 PRODUCT_PACKAGES += \
