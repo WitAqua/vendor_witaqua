@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2025 WitAqua
+     SPDX-License-Identifier: Apache-2.0
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="me.phh.treble.overlay.camera.sound">
+    <overlay android:isStatic="true" android:targetPackage="android" android:priority="9999"
+             android:requiredSystemPropertyName="persist.sys.camera.sound.disable"
+             android:requiredSystemPropertyValue="true" />
+</manifest>

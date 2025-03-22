@@ -1,0 +1,18 @@
+//
+// Copyright (C) 2025 WitAqua
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+runtime_resource_overlay {
+    name: "DisableCameraSoundOverlay",
+    required: ["init.camera.sound.rc"],
+    product_specific: true,
+}
+
+prebuilt_etc {
+    name: "init.camera.sound.rc",
+    src: "init.camera.sound.rc",
+    sub_dir: "init",
+    product_specific: true,
+}

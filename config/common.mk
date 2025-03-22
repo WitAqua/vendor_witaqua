@@ -254,6 +254,10 @@ PRODUCT_PACKAGES += \
     NetworkStackOverlay \
     PermissionControllerOverlay
 
+# Allow to disable camera sounds optionally
+PRODUCT_PACKAGES += \
+    DisableCameraSoundOverlay
+
 # Translations
 CUSTOM_LOCALES += \
     ast_ES \
