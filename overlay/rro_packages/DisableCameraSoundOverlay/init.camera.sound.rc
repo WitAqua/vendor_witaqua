@@ -1,0 +1,8 @@
+#
+#  Copyright (C) 2025 WitAqua
+#
+#  SPDX-License-Identifier: Apache-2.0
+#
+
+on property:audio.camerasound.force=true && property:persist.sys.camera.sound.disable=true
+    setprop audio.camerasound.force false
