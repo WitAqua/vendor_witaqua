@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2025 WitAqua
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="os_name" translatable="false">WitAqua</string>
+    <string name="services_privacy_policy_uri" translatable="false">https://witaqua.tokyo/legal</string>
+</resources>
