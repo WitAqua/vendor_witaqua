@@ -16,7 +16,8 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     setupwizard.feature.predeferred_enabled=false \
     drm.service.enabled=true \
     persist.sys.dun.override=0 \
-    persist.sys.disable_rescue=true
+    persist.sys.disable_rescue=true \
+    is_expressive_design_enabled=true
 
 # Disable touch video heatmap to reduce latency, motion jitter, and CPU usage
 # on supported devices with Deep Press input classifier HALs and models
