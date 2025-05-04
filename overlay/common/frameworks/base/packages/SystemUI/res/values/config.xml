@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) WitAqua
+     SPDX-License-Identifier: Apache-2.0
+-->
+
+<resources>
+    <!-- Enable long-pressing on keyguard to customize lockscreen -->
+    <bool name="long_press_keyguard_customize_lockscreen_enabled">true</bool>
+
+</resources>
