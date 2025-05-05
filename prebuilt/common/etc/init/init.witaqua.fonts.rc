@@ -1,0 +1,18 @@
+#
+#  Copyright (C) 2025 WitAqua
+#  SPDX-License-Identifier: Apache-2.0
+#
+
+on post-fs-data
+    mkdir /data/witaqua 0775 root system encryption=Require
+    mkdir /data/witaqua/fonts 0775 root system
+    chmod 0775 /data/witaqua/fonts/custom-font.ttf
+    chmod 0775 /data/witaqua/fonts/custom-emoji.ttf
+
+on property:persist.sys.custom_font_path=*
+    rm /data/witaqua/fonts/custom-font.ttf
+    copy ${persist.sys.custom_font_path} /data/witaqua/fonts/custom-font.ttf
+
+on property:persist.sys.custom_emoji_path=*
+    rm /data/witaqua/fonts/custom-emoji.ttf
+    copy ${persist.sys.custom_emoji_path} /data/witaqua/fonts/custom-emoji.ttf

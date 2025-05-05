@@ -50,3 +50,10 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.biometrics.face.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/android.hardware.biometrics.face.xml
 endif
+
+# Emoji
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,vendor/lineage/prebuilt/common/fonts/emoji,$(TARGET_COPY_OUT_PRODUCT)/fonts/emoji)
+
+PRODUCT_COPY_FILES += \
+    vendor/lineage/prebuilt/common/etc/init/init.witaqua.fonts.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.witaqua.fonts.rc
