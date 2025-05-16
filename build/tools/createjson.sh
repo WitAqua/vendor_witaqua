@@ -17,22 +17,16 @@
 #
 
 #$1=TARGET_DEVICE, $2=PRODUCT_OUT, $3=FILE_NAME
-existingOTAjson=./WitAquaOTA/data/$1.json
-output=$2/$1.json
-
-# Cleanup old file
-if [ -f $output ]; then
-    rm $output
-fi
+OTAjson=./WitAquaOTA/data/$1.json
 
 echo "Generating JSON file data for OTA support..."
 
 # Helper function to extract field from JSON
 extract_field() {
-    grep "\"$1\":" "$existingOTAjson" | sed -n "s/.*\"$1\": *\"\([^\"]*\)\".*/\1/p" | xargs
+    grep "\"$1\":" "$OTAjson" | sed -n "s/.*\"$1\": *\"\([^\"]*\)\".*/\1/p" | xargs
 }
 
-if [ -f $existingOTAjson ]; then
+if [ -f $OTAjson ]; then
     # Extract fields from existing JSON or leave empty
     MAINTAINER=$(extract_field "maintainer")
     OEM=$(extract_field "oem")
@@ -53,7 +47,7 @@ SHA256=$(sha256sum "$2/$3" | cut -d' ' -f1)
 SIZE=$(stat -c "%s" "$2/$3")
 
 # Generate JSON output
-cat <<EOF >$output
+cat <<EOF >$OTAjson
 {
     "response": [
         {
@@ -72,7 +66,7 @@ cat <<EOF >$output
 }
 EOF
 
-if [ ! -f $existingOTAjson ]; then
+if [ ! -f $OTAjson ]; then
     echo "There is no official support for this device yet"
     echo "Consider adding official support by reading the documentation at https://wiki.witaqua.org/developers/maintainership/requirements.html"
 fi
