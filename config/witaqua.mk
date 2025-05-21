@@ -1,3 +1,6 @@
+# Our addons
+$(call inherit-product-if-exists, vendor/addons/config.mk)
+
 # Additional props
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     dalvik.vm.debug.alloc=0 \
