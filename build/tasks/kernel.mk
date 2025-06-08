@@ -71,6 +71,8 @@
 #
 #   TARGET_FORCE_PREBUILT_KERNEL       = Optional, use TARGET_PREBUILT_KERNEL even if
 #                                          kernel sources are present
+#   TARGET_PREBUILT_KERNEL_HEADERS     = Optional, if this is set, don't warn about prebuilt
+#                                          kernel because headers should match
 #
 #   TARGET_MERGE_DTBS_WILDCARD         = Optional, limits the .dtb files used to generate the
 #                                          final DTB image when using QCOM's merge_dtbs script.
@@ -142,13 +144,15 @@ ifeq "$(wildcard $(KERNEL_SRC) )" ""
     endif
 
     ifneq ($(HAS_PREBUILT_KERNEL),)
-        $(warning ***************************************************************)
-        $(warning * Using prebuilt kernel binary instead of source              *)
-        $(warning * THIS IS DEPRECATED, AND IS NOT ADVISED.                     *)
-        $(warning * Please configure your device to download the kernel         *)
-        $(warning * source repository to $(KERNEL_SRC))
-        $(warning * for more information                                        *)
-        $(warning ***************************************************************)
+        ifeq ($(TARGET_PREBUILT_KERNEL_HEADERS),)
+            $(warning ***************************************************************)
+            $(warning * Using prebuilt kernel binary instead of source              *)
+            $(warning * THIS IS DEPRECATED, AND IS NOT ADVISED.                     *)
+            $(warning * Please configure your device to download the kernel         *)
+            $(warning * source repository to $(KERNEL_SRC))
+            $(warning * for more information                                        *)
+            $(warning ***************************************************************)
+        endif
         FULL_KERNEL_BUILD := false
         KERNEL_BIN := $(TARGET_PREBUILT_KERNEL)
     else
@@ -390,9 +394,13 @@ define build-image-kernel-modules-lineage
         if [ -n "$$(find $(2)/lib/modules$(6) -type f -name $$NAME'.ko')" ]; then \
             echo "$$NAME" >> $(2)/lib/modules$(6)/modules.load; \
         else \
-            echo "ERROR: $$NAME.ko was not found in the kernel modules intermediates dir, module load list must be corrected" 1>&2 && exit 1; \
+            echo "ERROR: $$NAME.ko was not found in the kernel modules intermediates dir, module load list must be corrected" 1>&2; \
+            ERROR=1; \
         fi; \
-    done
+    done; \
+    if [ -n "$$ERROR" ]; then \
+        exit 1; \
+    fi; \
     if [ -n "$(7)" ]; then \
         echo lib/modules$(6)/modules.alias >> "$(7)"; \
         echo lib/modules$(6)/modules.dep >> "$(7)"; \
