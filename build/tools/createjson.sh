@@ -55,7 +55,7 @@ cat <<EOF >$OTAjson
             "oem": "${OEM:-}",
             "device": "${DEVICE:-}",
             "filename": "$FILENAME",
-            "download": "https://sourceforge.net/projects/witaqua/files/$VERSION/$1/$3/download",
+            "download": "https://sourceforge.net/projects/witaqua/files/15.2/$1/$3/download",
             "timestamp": $TIMESTAMP,
             "md5": "$MD5",
             "sha256": "$SHA256",
