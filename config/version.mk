@@ -4,6 +4,7 @@ PRODUCT_VERSION_MINOR = 0
 # Increase WitAqua Version with each major release.
 WITAQUA_VERSION := 3.0
 WITAQUA_BUILD_TYPE ?= UNOFFICIAL
+WITAQUA_MAINTAINER ?= unknown
 
 # Internal version
 LINEAGE_VERSION := WitAqua-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(shell date +%Y%m%d)-$(LINEAGE_BUILD)-v$(WITAQUA_VERSION)-$(WITAQUA_BUILD_TYPE)
@@ -16,4 +17,6 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.witaqua.build.version=$(WITAQUA_VERSION) \
     ro.witaqua.display.version=$(LINEAGE_DISPLAY_VERSION) \
     ro.witaqua.version=$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR) \
+    ro.witaqua.build_type=$(WITAQUA_BUILD_TYPE) \
+    ro.witaqua.maintainer=$(WITAQUA_MAINTAINER) \
     ro.modversion=$(WITAQUA_VERSION)
