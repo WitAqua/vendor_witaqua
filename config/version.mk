@@ -17,6 +17,6 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.witaqua.build.version=$(WITAQUA_VERSION) \
     ro.witaqua.display.version=$(LINEAGE_DISPLAY_VERSION) \
     ro.witaqua.version=$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR) \
-    ro.witaqua.build_type=$(WITAQUA_BUILD_TYPE) \
+    ro.witaqua.build.status=$(WITAQUA_BUILD_TYPE) \
     ro.witaqua.maintainer=$(WITAQUA_MAINTAINER) \
     ro.modversion=$(WITAQUA_VERSION)
