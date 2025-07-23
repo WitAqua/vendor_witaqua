@@ -276,8 +276,7 @@ PRODUCT_PACKAGE_OVERLAYS += \
 PRODUCT_PACKAGES += \
     DocumentsUIOverlay \
     NetworkStackOverlay \
-    PermissionControllerOverlay \
-    SetupWizardOverlay
+    PermissionControllerOverlay
 
 # Allow to disable camera sounds optionally
 PRODUCT_PACKAGES += \
