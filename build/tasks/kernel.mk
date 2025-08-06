@@ -25,9 +25,9 @@
 #   TARGET_KERNEL_CONFIG               = List of kernel defconfigs, first one being the base one,
 #                                          while all the others are fragments that will be merged
 #                                          to main one in .config.
-#   TARGET_KERNEL_RECOVERY_CONFIG      = Same as above, but applicable to recovery kernel instead.
-#   TARGET_KERNEL_VARIANT_CONFIG       = Variant defconfig, optional
-#   TARGET_KERNEL_SELINUX_CONFIG       = SELinux defconfig, optional
+#   TARGET_KERNEL_CONFIG_EXT           = List of path to external kernel defconfigs.
+#                                          Same as TARGET_KERNEL_CONFIG, but paths are specified
+#                                          instead of filenames.
 #
 #   TARGET_KERNEL_CLANG_COMPILE        = Compile kernel with clang, defaults to true
 #
@@ -62,6 +62,11 @@
 #
 #   KERNEL_LTO                         = Optional, force LTO to none / thin / full
 #
+#   MERGE_ALL_KERNEL_CONFIGS_AT_ONCE   = Optional, whether or not to merge all kernel config
+#                                          fragments in one merge_configs.sh call. if true,
+#                                          kernel config fragments will get merged faster, but
+#                                          may cause some differences.
+#
 #   NEED_KERNEL_MODULE_ROOT            = Optional, if true, install kernel
 #                                          modules in root instead of vendor
 #   NEED_KERNEL_MODULE_SYSTEM          = Optional, if true, install kernel
@@ -76,26 +81,31 @@
 #
 #   TARGET_MERGE_DTBS_WILDCARD         = Optional, limits the .dtb files used to generate the
 #                                          final DTB image when using QCOM's merge_dtbs script.
+#   TARGET_DTB_LIST_WILDCARD           = Optional, limits the .dtb files used to generate the
+#                                          final DTB image when NOT using QCOM's merge_dtbs
+#                                          script. Allows multiple patterns.
 
 ifneq ($(TARGET_NO_KERNEL),true)
 ifneq ($(TARGET_NO_KERNEL_OVERRIDE),true)
 
 ## Externally influenced variables
 KERNEL_SRC := $(TARGET_KERNEL_SOURCE)
+ifneq ($(BOARD_SYSTEM_KERNEL_MODULES_LOAD),false)
+SYSTEM_KERNEL_MODULES_LOAD := $(BOARD_SYSTEM_KERNEL_MODULES_LOAD)
+endif
 # kernel configuration - mandatory
+MERGE_ALL_KERNEL_CONFIGS_AT_ONCE ?= false
 KERNEL_DEFCONFIG := $(TARGET_KERNEL_CONFIG)
-RECOVERY_DEFCONFIG := $(TARGET_KERNEL_RECOVERY_CONFIG)
-VARIANT_DEFCONFIG := $(TARGET_KERNEL_VARIANT_CONFIG)
-SELINUX_DEFCONFIG := $(TARGET_KERNEL_SELINUX_CONFIG)
+KERNEL_DEFCONFIG_EXT := $(TARGET_KERNEL_CONFIG_EXT)
 # dtb generation - optional
 TARGET_MERGE_DTBS_WILDCARD ?= *
+TARGET_DTB_LIST_WILDCARD ?= *
 # recovery modules.load fallback - optional
 BOARD_RECOVERY_KERNEL_MODULES_LOAD ?= $(BOARD_RECOVERY_RAMDISK_KERNEL_MODULES_LOAD)
 
 ## Internal variables
 DTC := $(HOST_OUT_EXECUTABLES)/dtc
 KERNEL_OUT := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ
-RECOVERY_KERNEL_OUT := $(TARGET_OUT_INTERMEDIATES)/RECOVERY_KERNEL_OBJ
 DTBO_OUT := $(TARGET_OUT_INTERMEDIATES)/DTBO_OBJ
 DTB_OUT := $(TARGET_OUT_INTERMEDIATES)/DTB_OBJ
 ifeq ($(BOARD_USES_QCOM_MERGE_DTBS_SCRIPT),true)
@@ -104,8 +114,6 @@ DTBS_OUT := $(DTB_OUT)/out
 endif
 KERNEL_CONFIG := $(KERNEL_OUT)/.config
 KERNEL_RELEASE := $(KERNEL_OUT)/include/config/kernel.release
-RECOVERY_KERNEL_CONFIG := $(RECOVERY_KERNEL_OUT)/.config
-RECOVERY_KERNEL_RELEASE := $(RECOVERY_KERNEL_OUT)/include/config/kernel.release
 ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
 ifeq ($(shell expr $(TARGET_KERNEL_VERSION) \>= 5.15), 1)
 ifeq ($(shell expr $(TARGET_KERNEL_VERSION) \<= 6.1), 1)
@@ -120,13 +128,11 @@ else
 KERNEL_DEFCONFIG_ARCH := $(KERNEL_ARCH)
 endif
 KERNEL_DEFCONFIG_DIR := $(KERNEL_SRC)/arch/$(KERNEL_DEFCONFIG_ARCH)/configs
-ALL_KERNEL_DEFCONFIG_SRCS := $(foreach config,$(KERNEL_DEFCONFIG),$(KERNEL_DEFCONFIG_DIR)/$(config))
-ALL_RECOVERY_KERNEL_DEFCONFIG_SRCS := $(foreach config,$(RECOVERY_DEFCONFIG),$(KERNEL_DEFCONFIG_DIR)/$(config))
 
-BASE_KERNEL_DEFCONFIG := $(word 1, $(KERNEL_DEFCONFIG))
+ALL_KERNEL_DEFCONFIG_SRCS := $(foreach config,$(KERNEL_DEFCONFIG),$(KERNEL_DEFCONFIG_DIR)/$(config))
+ALL_KERNEL_DEFCONFIG_SRCS += $(KERNEL_DEFCONFIG_EXT)
+
 BASE_KERNEL_DEFCONFIG_SRC := $(word 1, $(ALL_KERNEL_DEFCONFIG_SRCS))
-BASE_RECOVERY_KERNEL_DEFCONFIG := $(word 1, $(RECOVERY_DEFCONFIG))
-BASE_RECOVERY_KERNEL_DEFCONFIG_SRC := $(word 1, $(ALL_RECOVERY_KERNEL_DEFCONFIG_SRCS))
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
     ifeq ($(BOARD_KERNEL_IMAGE_NAME),)
@@ -134,8 +140,6 @@ ifeq ($(TARGET_PREBUILT_KERNEL),)
     endif
 endif
 TARGET_PREBUILT_INT_KERNEL := $(KERNEL_OUT)/arch/$(KERNEL_ARCH)/boot/$(BOARD_KERNEL_IMAGE_NAME)
-
-TARGET_PREBUILT_INT_RECOVERY_KERNEL := $(RECOVERY_KERNEL_OUT)/arch/$(KERNEL_ARCH)/boot/$(BOARD_KERNEL_IMAGE_NAME)
 
 ifeq "$(wildcard $(KERNEL_SRC) )" ""
     ifneq ($(TARGET_PREBUILT_KERNEL),)
@@ -178,7 +182,7 @@ ifeq "$(wildcard $(KERNEL_SRC) )" ""
     endif
 else
     NEEDS_KERNEL_COPY := true
-    ifeq ($(TARGET_KERNEL_CONFIG),)
+    ifeq ($(TARGET_KERNEL_CONFIG)$(TARGET_KERNEL_CONFIG_EXT),)
         $(warning **********************************************************)
         $(warning * Kernel source found, but no configuration was defined  *)
         $(warning * Please add the TARGET_KERNEL_CONFIG variable to your   *)
@@ -210,45 +214,7 @@ else
     endif
 endif
 
-ifneq ($(TARGET_KERNEL_RECOVERY_CONFIG),)
-    ifeq "$(wildcard $(KERNEL_SRC) )" ""
-    ifeq ($(TARGET_PREBUILT_RECOVERY_KERNEL),)
-        $(warning ***************************************************************)
-        $(warning *                                                             *)
-        $(warning * No recovery kernel source found, and no fallback prebuilt   *)
-        $(warning * defined. Please make sure your device is properly           *)
-        $(warning * configured to download the kernel repository to $(KERNEL_SRC))
-        $(warning * or remove TARGET_KERNEL_RECOVERY_CONFIG from BoardConfig.mk *)
-        $(warning *                                                             *)
-        $(warning * Or, define the TARGET_PREBUILT_RECOVERY_KERNEL              *)
-        $(warning * variable with the path to the prebuilt recovery kernel image*)
-        $(warning * in your BoardConfig.mk file                                 *)
-        $(warning *                                                             *)
-        $(warning ***************************************************************)
-        $(error "NO RECOVERY KERNEL SOURCE")
-    endif
-    endif
-    ifneq ($(BOARD_USES_RECOVERY_AS_BOOT),)
-        $(warning ********************************************************)
-        $(warning * TARGET_KERNEL_RECOVERY_CONFIG set but device uses    *)
-        $(warning * RECOVERY_AS_BOOT, which uses boot kernel as recovery *)
-        $(warning * kernel, as such it's not possible to use different   *)
-        $(warning * configs                                              *)
-        $(warning ********************************************************)
-        $(error "INVALID CONFIGURATION")
-    else
-        FULL_RECOVERY_KERNEL_BUILD := true
-        RECOVERY_KERNEL_COPY := true
-        RECOVERY_BIN := $(TARGET_PREBUILT_INT_RECOVERY_KERNEL)
-    endif
-else
-    ifneq ($(TARGET_PREBUILT_RECOVERY_KERNEL),)
-        RECOVERY_BIN := $(TARGET_PREBUILT_RECOVERY_KERNEL)
-        RECOVERY_KERNEL_COPY := true
-    endif
-endif
-
-ifeq ($(or $(FULL_RECOVERY_KERNEL_BUILD), $(FULL_KERNEL_BUILD)),true)
+ifeq ($(FULL_KERNEL_BUILD),true)
 # Add host bin out dir to path
 PATH_OVERRIDE := PATH=$(KERNEL_BUILD_OUT_PREFIX)$(HOST_OUT_EXECUTABLES):$$PATH
 ifneq ($(TARGET_KERNEL_CLANG_COMPILE),false)
@@ -264,7 +230,7 @@ ifneq ($(TARGET_KERNEL_CLANG_COMPILE),false)
     endif
     PATH_OVERRIDE += PATH=$(TARGET_KERNEL_CLANG_PATH)/bin:$$PATH
     ifeq ($(KERNEL_CC),)
-        KERNEL_CC := CC="$(CCACHE_BIN) clang"
+        KERNEL_CC := CC="$(CCACHE_BIN) clang" LD=ld.lld
     endif
 endif
 
@@ -308,9 +274,19 @@ endef
 
 # Generate kernel .config from a given defconfig
 # $(1): Output path (The value passed to O=)
-# $(2): The defconfig to process (just the filename, no need for full path to file)
+# $(2): The defconfig to process (full path to file)
 define make-kernel-config
-	$(call internal-make-kernel-target,$(1),VARIANT_DEFCONFIG=$(VARIANT_DEFCONFIG) SELINUX_DEFCONFIG=$(SELINUX_DEFCONFIG) $(2))
+	cp $(word 1,$(2)) $(1)/.config; \
+	$(call internal-make-kernel-target,$(1),olddefconfig); \
+	$(if $(filter true,$(MERGE_ALL_KERNEL_CONFIGS_AT_ONCE)),\
+		$(KERNEL_SRC)/scripts/kconfig/merge_config.sh -m -O $(1) $(1)/.config $(filter %.config,$(2)); \
+		$(call internal-make-kernel-target,$(1),olddefconfig); \
+	, \
+		$(foreach config,$(filter %.config,$(2)), \
+			$(KERNEL_SRC)/scripts/kconfig/merge_config.sh -m -O $(1) $(1)/.config $(config); \
+			$(call internal-make-kernel-target,$(1),olddefconfig); \
+		) \
+	)
 	$(hide) if [ "$(KERNEL_LTO)" = "none" ]; then \
 			$(KERNEL_SRC)/scripts/config --file $(1)/.config \
 			-d LTO_CLANG \
@@ -347,12 +323,6 @@ endef
 # $(1): The kernel target to build (eg. defconfig, modules, modules_install)
 define make-kernel-target
 $(call internal-make-kernel-target,$(KERNEL_OUT),$(1))
-endef
-
-# Make a recovery kernel target
-# $(1): The kernel target to build (eg. defconfig, modules, modules_install)
-define make-recovery-kernel-target
-$(call internal-make-kernel-target,$(RECOVERY_KERNEL_OUT),$(1))
 endef
 
 # Make a DTBO target
@@ -420,7 +390,7 @@ define build-image-kernel-modules-lineage
     fi;
 endef
 
-endif # FULL_RECOVERY_KERNEL_BUILD or FULL_KERNEL_BUILD
+endif # FULL_KERNEL_BUILD
 
 ifeq ($(FULL_KERNEL_BUILD),true)
 
@@ -461,6 +431,12 @@ SYSTEM_KERNEL_DEPMOD_STAGING_DIR := $(KERNEL_BUILD_OUT_PREFIX)$(call intermediat
 SYSTEM_KERNEL_MODULE_MOUNTPOINT := system_dlkm
 SYSTEM_KERNEL_MODULES_PARTITION_FILE_LIST := $(system_dlkmimage_intermediates)/file_list.txt
 $(INSTALLED_SYSTEM_DLKMIMAGE_TARGET): $(TARGET_PREBUILT_INT_KERNEL)
+else ifneq ($(SYSTEM_KERNEL_MODULES),)
+SYSTEM_KERNEL_MODULES_OUT := $(TARGET_OUT)
+SYSTEM_KERNEL_DEPMOD_STAGING_DIR := $(KERNEL_BUILD_OUT_PREFIX)$(call intermediates-dir-for,PACKAGING,depmod_system)
+SYSTEM_KERNEL_MODULE_MOUNTPOINT := system
+SYSTEM_KERNEL_MODULES_PARTITION_FILE_LIST := $(systemimage_intermediates)/file_list.txt
+$(INSTALLED_SYSTEMIMAGE_TARGET): $(TARGET_PREBUILT_INT_KERNEL)
 endif
 MODULES_INTERMEDIATES := $(KERNEL_BUILD_OUT_PREFIX)$(call intermediates-dir-for,PACKAGING,kernel_modules)
 
@@ -499,7 +475,7 @@ $(KERNEL_OUT):
 
 $(KERNEL_CONFIG): $(KERNEL_OUT) $(ALL_KERNEL_DEFCONFIG_SRCS)
 	@echo "Building Kernel Config"
-	$(call make-kernel-config,$(KERNEL_OUT),$(KERNEL_DEFCONFIG))
+	$(call make-kernel-config,$(KERNEL_OUT),$(ALL_KERNEL_DEFCONFIG_SRCS))
 
 $(TARGET_PREBUILT_INT_KERNEL): $(KERNEL_CONFIG) $(DEPMOD) $(DTC) $(KERNEL_MODULES_PARTITION_FILE_LIST) $(SYSTEM_KERNEL_MODULES_PARTITION_FILE_LIST)
 	@echo "Building Kernel Image ($(BOARD_KERNEL_IMAGE_NAME))"
@@ -542,17 +518,19 @@ $(TARGET_PREBUILT_INT_KERNEL): $(KERNEL_CONFIG) $(DEPMOD) $(DTC) $(KERNEL_MODULE
 					if [ -n "$$p" ]; then echo $$p; else echo "ERROR: $$m from SYSTEM_KERNEL_MODULES was not found" 1>&2 && exit 1; fi; \
 				done); \
 				[ $$? -ne 0 ] && exit 1; \
-				($(call build-image-kernel-modules-lineage,$$gki_modules,$(SYSTEM_KERNEL_MODULES_OUT),$(SYSTEM_KERNEL_MODULE_MOUNTPOINT)/,$(SYSTEM_KERNEL_DEPMOD_STAGING_DIR),$(BOARD_SYSTEM_KERNEL_MODULES_LOAD),$(GKI_SUFFIX),$(SYSTEM_KERNEL_MODULES_PARTITION_FILE_LIST),)) || exit "$$?"; \
+				($(call build-image-kernel-modules-lineage,$$gki_modules,$(SYSTEM_KERNEL_MODULES_OUT),$(SYSTEM_KERNEL_MODULE_MOUNTPOINT)/,$(SYSTEM_KERNEL_DEPMOD_STAGING_DIR),$(SYSTEM_KERNEL_MODULES_LOAD),$(GKI_SUFFIX),$(SYSTEM_KERNEL_MODULES_PARTITION_FILE_LIST),)) || exit "$$?"; \
 				filtered_modules=$$(for n in $$all_modules; do \
 					module_name=$$(basename $$n); \
 					if [[ ! "$(SYSTEM_KERNEL_MODULES)" =~ "$$module_name" ]]; then echo $$n; fi; \
 				done); \
 				($(call build-image-kernel-modules-lineage,$$filtered_modules,$(KERNEL_MODULES_OUT),$(KERNEL_MODULE_MOUNTPOINT)/,$(KERNEL_DEPMOD_STAGING_DIR),$(BOARD_VENDOR_KERNEL_MODULES_LOAD),,$(KERNEL_MODULES_PARTITION_FILE_LIST),$(SYSTEM_KERNEL_DEPMOD_STAGING_DIR)/lib/modules/0.0/$(SYSTEM_KERNEL_MODULE_MOUNTPOINT))) || exit "$$?"; \
-				(for m in $$(find $(SYSTEM_KERNEL_MODULES_OUT) -type f -name "*.ko"); do \
-					$(KERNEL_OUT)/scripts/sign-file sha1 \
-					$(KERNEL_OUT)/certs/signing_key.pem \
-					$(KERNEL_OUT)/certs/signing_key.x509 "$$m"; \
-				done) || exit "$$?"; \
+				if grep -q 'CONFIG_MODULE_SIG_FORMAT=y' $(KERNEL_CONFIG); then \
+					(for m in $$(find $(SYSTEM_KERNEL_MODULES_OUT) -type f -name "*.ko"); do \
+						$(KERNEL_OUT)/scripts/sign-file sha1 \
+						$(KERNEL_OUT)/certs/signing_key.pem \
+						$(KERNEL_OUT)/certs/signing_key.x509 "$$m"; \
+					done) || exit "$$?"; \
+				fi; \
 				,\
 				($(call build-image-kernel-modules-lineage,$$all_modules,$(KERNEL_MODULES_OUT),$(KERNEL_MODULE_MOUNTPOINT)/,$(KERNEL_DEPMOD_STAGING_DIR),$(BOARD_VENDOR_KERNEL_MODULES_LOAD),,$(KERNEL_MODULES_PARTITION_FILE_LIST),)) || exit "$$?"; \
 			) \
@@ -578,10 +556,10 @@ $(TARGET_PREBUILT_INT_KERNEL): $(KERNEL_CONFIG) $(DEPMOD) $(DTC) $(KERNEL_MODULE
 kerneltags: $(KERNEL_CONFIG)
 	$(call make-kernel-target,tags)
 
-.PHONY: kernelsavedefconfig alldefconfig kernelconfig recoverykernelconfig
+.PHONY: kernelsavedefconfig alldefconfig kernelconfig
 
 kernelsavedefconfig: $(KERNEL_OUT)
-	$(call make-kernel-config,$(KERNEL_OUT),$(BASE_KERNEL_DEFCONFIG))
+	$(call make-kernel-config,$(KERNEL_OUT),$(BASE_KERNEL_DEFCONFIG_SRC))
 	$(call make-kernel-target,savedefconfig)
 	cp $(KERNEL_OUT)/defconfig $(BASE_KERNEL_DEFCONFIG_SRC)
 
@@ -591,11 +569,7 @@ alldefconfig: $(KERNEL_OUT)
 
 kernelconfig: $(KERNEL_OUT) $(ALL_KERNEL_DEFCONFIG_SRCS)
 	@echo "Building Kernel Config"
-	$(call make-kernel-config,$(KERNEL_OUT),$(KERNEL_DEFCONFIG))
-
-recoverykernelconfig: $(KERNEL_OUT) $(ALL_RECOVERY_KERNEL_DEFCONFIG_SRCS)
-	@echo "Building Recovery Kernel Config"
-	$(call make-kernel-config,$(RECOVERY_KERNEL_OUT),$(RECOVERY_DEFCONFIG))
+	$(call make-kernel-config,$(KERNEL_OUT),$(ALL_KERNEL_DEFCONFIG_SRCS))
 
 ifeq (true,$(filter true, $(TARGET_NEEDS_DTBOIMAGE) $(BOARD_KERNEL_SEPARATED_DTBO)))
 ifneq ($(BOARD_CUSTOM_DTBOIMG_MK),)
@@ -663,7 +637,7 @@ ifeq ($(TARGET_WANTS_EMPTY_DTB),true)
 else
 	@echo "Building dtb.img"
 	$(hide) find $(DTB_OUT)/arch/$(KERNEL_ARCH)/boot/dts -type f -name "*.dtb" | xargs rm -f
-	$(call make-dtb-target,$(KERNEL_DEFCONFIG))
+	$(call make-kernel-config,$(DTB_OUT),$(ALL_KERNEL_DEFCONFIG_SRCS))
 	$(call make-dtb-target,$(TARGET_KERNEL_DTB))
 ifdef BOARD_DTB_CFG
 	$(MKDTBOIMG) cfg_create $@ $(BOARD_DTB_CFG) -d $(DTB_OUT)/arch/$(KERNEL_ARCH)/boot/dts
@@ -675,7 +649,9 @@ ifeq ($(BOARD_USES_QCOM_MERGE_DTBS_SCRIPT),true)
 	PATH=$(abspath $(HOST_OUT_EXECUTABLES)):$${PATH} python3 $(BUILD_TOP)/vendor/lineage/build/tools/merge_dtbs.py --base $(DTBS_BASE) --techpack $(DTB_OUT)/arch/$(KERNEL_ARCH)/boot/dts/vendor/qcom --out $(DTBS_OUT)
 	cat $(shell find $(DTBS_OUT) -type f -name "${TARGET_MERGE_DTBS_WILDCARD}.dtb" | sort) > $@
 else
-	cat $(shell find $(DTB_OUT)/arch/$(KERNEL_ARCH)/boot/dts -type f -name "*.dtb" | sort) > $@
+	@rm -f $@
+	$(foreach dtb,$(TARGET_DTB_LIST_WILDCARD),\
+		cat `find $(DTB_OUT)/arch/$(KERNEL_ARCH)/boot/dts/$(dir $(dtb)) -type f -name "$(notdir $(dtb)).dtb" | sort` >> $@;)
 endif # BOARD_USES_QCOM_MERGE_DTBS_SCRIPT
 endif # BOARD_DTB_CFG
 	$(hide) touch -c $(DTB_OUT)
@@ -687,25 +663,9 @@ endif # BOARD_INCLUDE_DTB_IN_BOOTIMG
 
 endif # FULL_KERNEL_BUILD
 
-ifeq ($(FULL_RECOVERY_KERNEL_BUILD),true)
-
-$(RECOVERY_KERNEL_OUT):
-	mkdir -p $(RECOVERY_KERNEL_OUT)
-
-$(RECOVERY_KERNEL_CONFIG): $(ALL_RECOVERY_KERNEL_DEFCONFIG_SRCS)
-	@echo "Building Recovery Kernel Config"
-	$(call make-kernel-config,$(RECOVERY_KERNEL_OUT),$(RECOVERY_DEFCONFIG))
-
-$(TARGET_PREBUILT_INT_RECOVERY_KERNEL): $(RECOVERY_KERNEL_CONFIG) $(DEPMOD) $(DTC)
-	@echo "Building Recovery Kernel Image ($(BOARD_KERNEL_IMAGE_NAME))"
-	$(call make-recovery-kernel-target,$(BOARD_KERNEL_IMAGE_NAME))
-
-
-endif
-
 ## Install it
 
-ifeq ($(or $(FULL_RECOVERY_KERNEL_BUILD), $(FULL_KERNEL_BUILD)),true)
+ifeq ($(FULL_KERNEL_BUILD),true)
 
 # Append DTBs to kernel image
 # $(1): output directory path (The value passed to O=)
@@ -722,7 +682,7 @@ define append-dtbs-to-kernel-image
 		fi
 endef
 
-endif # FULL_RECOVERY_KERNEL_BUILD or FULL_KERNEL_BUILD
+endif # FULL_KERNEL_BUILD
 
 ifeq ($(NEEDS_KERNEL_COPY),true)
 $(INSTALLED_KERNEL_TARGET): $(KERNEL_BIN)
@@ -730,16 +690,6 @@ $(INSTALLED_KERNEL_TARGET): $(KERNEL_BIN)
 	$(if $(filter true,$(FULL_KERNEL_BUILD)),\
 		$(call append-dtbs-to-kernel-image,$(KERNEL_OUT),$@))
 endif
-
-ifeq ($(RECOVERY_KERNEL_COPY),true)
-$(INSTALLED_RECOVERY_KERNEL_TARGET): $(RECOVERY_BIN)
-	$(transform-prebuilt-to-target)
-	$(if $(filter true,$(FULL_RECOVERY_KERNEL_BUILD)),\
-		$(call append-dtbs-to-kernel-image,$(RECOVERY_KERNEL_OUT),$@))
-endif
-
-.PHONY: recovery-kernel
-recovery-kernel: $(INSTALLED_RECOVERY_KERNEL_TARGET)
 
 .PHONY: kernel
 kernel: $(INSTALLED_KERNEL_TARGET)
