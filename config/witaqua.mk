@@ -68,5 +68,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     GameSpace \
     OmniJaws \
+    OmniStyle \
     LMOFreeform \
     LMOFreeformSidebar
