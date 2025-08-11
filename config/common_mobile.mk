@@ -112,8 +112,12 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
 # TFLite service.
 PRODUCT_PACKAGES += libtensorflowlite_jni
 
+ifeq ($(TARGET_SUPPORTS_32_BIT_APPS), true)
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
-    system/lib/libtensorflowlite_jni.so \
+    system/lib/libtensorflowlite_jni.so
+endif
+
+PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/lib64/libtensorflowlite_jni.so
 
 # Themes
