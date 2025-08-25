@@ -14,14 +14,6 @@
         </interface>
     </hal>
     <!-- Charging -->
-    <hal format="hidl" optional="true">
-        <name>vendor.lineage.fastcharge</name>
-        <version>1.0</version>
-        <interface>
-            <name>IFastCharge</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
     <hal format="aidl" optional="true">
         <name>vendor.lineage.health</name>
         <version>1-2</version>
@@ -43,49 +35,9 @@
         </interface>
     </hal>
     <!-- Display -->
-    <hal format="hidl" optional="true">
+    <hal format="aidl" optional="true">
         <name>vendor.lineage.livedisplay</name>
-        <version>2.0</version>
-        <interface>
-            <name>IAdaptiveBacklight</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>IAutoContrast</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>IColorBalance</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>IColorEnhancement</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>IDisplayColorCalibration</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>IDisplayModes</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>IPictureAdjustment</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>IReadingEnhancement</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>ISunlightEnhancement</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl" optional="true">
-        <name>vendor.lineage.livedisplay</name>
-        <version>2.1</version>
+        <version>1</version>
         <interface>
             <name>IAdaptiveBacklight</name>
             <instance>default</instance>
