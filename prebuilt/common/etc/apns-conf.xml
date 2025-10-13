@@ -117,6 +117,7 @@
   <apn carrier="Mobile Vikings MMS" mcc="206" mnc="20" apn="mms.be" proxy="" port="" user="mms" password="mms" mmsc="http://mmsc.be" mmsproxy="217.72.235.1" mmsport="8080" authtype="1" type="mms" />
   <apn carrier="JIM Mobile Internet" mcc="206" mnc="20" apn="gprs.base.be" proxy="" port="" user="base" password="base" mmsc="" authtype="1" type="default,supl" />
   <apn carrier="JIM Mobile MMS" mcc="206" mnc="20" apn="mms.base.be" proxy="" port="" user="base" password="base" mmsc="http://mmsc.base.be" mmsproxy="217.72.235.1" mmsport="8080" authtype="1" type="mms" />
+  <apn carrier="BICS Internet" carrier_id="2132" mcc="206" mnc="28" apn="bicsapn" type="default,ia,supl" />
   <apn carrier="Orange Internet" mcc="208" mnc="01" apn="orange.fr" proxy="" port="" user="orange" password="orange" mmsc="" type="default,supl,dun" />
   <apn carrier="Orange MMS" mcc="208" mnc="01" apn="orange.acte" proxy="" port="" mmsproxy="192.168.010.200" mmsport="8080" mmsc="http://mms.orange.fr" user="orange" password="orange" type="mms" />
   <apn carrier="Orange World" mcc="208" mnc="01" apn="orange" user="orange" password="orange" authtype="2" type="default,supl" />
@@ -1168,6 +1169,7 @@
   <apn carrier="T-Mobile MK MMS" mcc="294" mnc="01" apn="mms" proxy="" port="" user="mms" password="mms" mmsc="http://mms.t-mobile.com.mk" mmsproxy="62.162.155.227" mmsport="8080" authtype="3" type="mms" />
   <apn carrier="Vip internet" mcc="294" mnc="03" apn="vipoperator" proxy="78.40.0.1" port="8080" mmsc="" user="vipoperator" password="vipoperator" type="default,supl" />
   <apn carrier="Vip mms" mcc="294" mnc="03" apn="vipoperator.mms" proxy="" port="" mmsproxy="78.40.0.1" mmsport="8080" mmsc="http://mmsc.vipoperator.com.mk" user="" password="" type="mms" />
+  <apn carrier="BICS" carrier_id="2232" mcc="295" mnc="09" apn="bicsapn" mvno_match_data="BICS" mvno_type="spn" type="default,ia" />
   <apn carrier="Telenor MNE internet" mcc="297" mnc="01" apn="internet" proxy="192.168.246.005" port="8080" mmsc="" user="gprs" password="gprs" type="default,supl" />
   <apn carrier="Telenor MNE mms" mcc="297" mnc="01" apn="mms" proxy="" port="" mmsproxy="192.168.246.005" mmsport="8080" mmsc="http://mm.vor.telenor.me" user="mms" password="mms" type="mms" />
   <apn carrier="ProMonte" mcc="297" mnc="01" apn="gprs.promonte.com" proxy="" port="" user="gprs" password="gprs" mmsc="" type="default,supl" />
@@ -3180,19 +3182,22 @@
   <apn carrier="SmarTone Macau" mcc="455" mnc="00" apn="smartgprs" proxy="10.9.9.29" port="8080" user="" password="" mmsc="http://mms.smartone.com.mo/dmog/mo" mmsproxy="10.9.9.29" mmsport="8080" type="default,supl,mms" />
   <apn carrier="SmarTone MMS" mcc="455" mnc="00" apn="smartgprs" proxy="" port="" user="" password="" mmsc="http://mms.smartone.com.mo/dmog/mo" mmsproxy="10.9.9.29" mmsport="9201" type="mms" />
   <apn carrier="SmarTone" mcc="455" mnc="00" apn="smartweb" proxy="" port="" user="" password="" mmsc="" type="default,supl" />
-  <apn carrier="CTM Data" apn="ctm-mobile" proxy="192.168.99.2" port="8080" mmsc="" mcc="455" mnc="01" authtype="3" type="default,supl" />
-  <apn carrier="CTM Data (Prepaid)" apn="ctmprepaid" proxy="192.168.99.2" port="8080" mmsc="http://mms.wap.ctm.net:8002" mmsproxy="192.168.99.3" mmsport="8080" mcc="455" mnc="01" authtype="3" type="default,mms" />
-  <apn carrier="CTM MMS" mcc="455" mnc="01" apn="ctmmms" proxy="" port="" mmsc="http://mms.wap.ctm.net:8002" mmsproxy="192.168.99.3" mmsport="8080" authtype="3" type="mms" />
-  <apn carrier="CTM" mcc="455" mnc="01" apn="ctm-mobile" type="default,supl" />
-  <apn carrier="CTM MMS" mcc="455" mnc="01" apn="ctmmms" mmsc="http://mms.wap.ctm.net:8002" mmsproxy="192.168.99.3" mmsport="8080" type="mms" />
+  <apn carrier="CTM Data" mcc="455" mnc="01" apn="ctm-mobile" type="default,ia,supl" authtype="0" protocol="IPV4V6" roaming_protocol="IPV4V6" />
+  <apn carrier="CTM MMS" mcc="455" mnc="01" apn="ctmmms" mmsc="http://mms.wap.ctm.net:8002" mmsproxy="192.168.99.3" mmsport="8080" authtype="0" type="mms" protocol="IPV4V6" roaming_protocol="IPV4V6" />
+  <apn carrier="CTM (Prepaid)" mcc="455" mnc="01" apn="ctmprepaid" mmsc="http://mms.wap.ctm.net:8002" mmsproxy="192.168.99.3" mmsport="8080" authtype="0" type="default,ia,supl,mms" protocol="IPV4V6" roaming_protocol="IPV4V6" />
+  <apn carrier="CTM IMS" mcc="455" mnc="01" apn="ims" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" />
+  <apn carrier="CTM XCAP" mcc="455" mnc="01" apn="XCAP" type="xcap" user_visible="false" />
   <apn carrier="中國電信(China Telecom) NET" mcc="455" mnc="02" apn="ctnet" authtype="3" type="default,ia,supl,xcap" protocol="IPV4V6" roaming_protocol="IPV4V6" />
   <apn carrier="中國電信(China Telecom) IMS" mcc="455" mnc="02" apn="ims" authtype="0" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" />
   <apn carrier="中國電信(China Telecom) MMS" mcc="455" mnc="02" apn="ctwap" mmsc="http://mmsc.vnet.mobi" mmsproxy="10.0.0.200" mmsport="80" authtype="3" type="mms" protocol="IPV4V6" roaming_protocol="IPV4V6" />
   <apn carrier="3MACAU" mcc="455" mnc="03" apn="mobile.three.com.mo" proxy="" port="" user="" password="" mmsc="http://mms.three.com.mo:10021/mmsc" mmsproxy="172.20.80.80" mmsport="8080" authtype="3" type="default,mms" />
   <apn carrier="Hutchison Macau MMS" mcc="455" mnc="03" apn="mms.hutchisonmacau.com" mmsc="http://10.30.15.51:10021/mmsc" mmsproxy="10.30.15.53" mmsport="8080" type="mms" />
   <apn carrier="Hutchison Macau" mcc="455" mnc="03" apn="web-g.three.com.hk" user="hutchison" password="1234" type="default,supl" />
-  <apn carrier="CTM" mcc="455" mnc="04" apn="ctm-mobile" proxy="192.168.99.2" port="8080" type="default,supl" />
-  <apn carrier="CTM MMS" mcc="455" mnc="04" apn="ctmmms" mmsc="http://mms.wap.ctm.net:8002" mmsproxy="192.168.99.3" mmsport="8080" type="mms" />
+  <apn carrier="CTM Data" mcc="455" mnc="04" apn="ctm-mobile" type="default,ia,supl" protocol="IPV4V6" roaming_protocol="IPV4V6" />
+  <apn carrier="CTM MMS" mcc="455" mnc="04" apn="ctmmms" mmsc="http://mms.wap.ctm.net:8002" mmsproxy="192.168.99.3" mmsport="8080" type="mms" protocol="IPV4V6" roaming_protocol="IPV4V6" />
+  <apn carrier="CTM (Prepaid)" mcc="455" mnc="04" apn="ctmprepaid" mmsc="http://mms.wap.ctm.net:8002" mmsproxy="192.168.99.3" mmsport="8080" type="default,ia,supl,mms" protocol="IPV4V6" roaming_protocol="IPV4V6" />
+  <apn carrier="CTM IMS" mcc="455" mnc="04" apn="ims" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" />
+  <apn carrier="CTM XCAP" mcc="455" mnc="04" apn="XCAP" type="xcap" user_visible="false" />
   <apn carrier="中國電信(China Telecom) NET" mcc="455" mnc="07" apn="ctnet" authtype="3" type="default,ia,supl,xcap" protocol="IPV4V6" roaming_protocol="IPV4V6" />
   <apn carrier="中國電信(China Telecom) IMS" mcc="455" mnc="07" apn="ims" authtype="0" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" />
   <apn carrier="中國電信(China Telecom) MMS" mcc="455" mnc="07" apn="ctwap" mmsc="http://mmsc.vnet.mobi" mmsproxy="10.0.0.200" mmsport="80" authtype="3" type="mms" protocol="IPV4V6" roaming_protocol="IPV4V6" />
@@ -3974,4 +3979,5 @@
   <apn carrier="Claro MMS" mcc="748" mnc="10" apn="mms.ctimovil.com.uy" proxy="" port="" mmsc="http://mms.ctimovil.com.uy" user="" password="" type="mms" />
   <apn carrier="Claro UY" mcc="748" mnc="10" apn="gprs.claro.com.uy" user="ctigpr" password="ctigpr999" type="default,supl" />
   <apn carrier="Claro UY MMS" mcc="748" mnc="10" apn="mms.ctimovil.com.uy" user="ctimms" password="ctimms999" mmsc="http://mms.ctimovil.com.uy" mmsproxy="170.051.255.240" mmsport="9201" type="mms" />
+  <apn carrier="BICS Internet" carrier_id="2132" mcc="901" mnc="58" apn="bicsapn" type="default,ia,supl" />
 </apns>

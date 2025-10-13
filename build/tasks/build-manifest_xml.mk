@@ -1,4 +1,4 @@
-# Copyright (C) 2019-2020 The LineageOS Project
+# Copyright (C) 2023-2025 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,10 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+ifdef MANIFEST_EXCLUDES
+MANIFEST_EXCLUDES := |$(MANIFEST_EXCLUDES)
+endif
 
-# Allow building otatools
-TARGET_FORCE_OTA_PACKAGE := true
+$(INSTALLED_BUILD_MANIFEST_XML_TARGET):
+	mkdir -p $(dir $@)
+	python3 .repo/repo/repo manifest -o - -r | grep -Ev "proprietary_$(MANIFEST_EXCLUDES)" > $@
 
-# Disable soong defined system image for now
-USE_SOONG_DEFINED_SYSTEM_IMAGE := false
+.PHONY: build-manifest.xml
+build-manifest.xml: $(INSTALLED_BUILD_MANIFEST_XML_TARGET)

@@ -1,4 +1,3 @@
 proprietary/*
 prebuilt/archive
 prebuilt/generated/*
-!prebuilt/generated/Android.bp
