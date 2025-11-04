@@ -3079,7 +3079,7 @@
   <apn carrier="mineo(auプラン)" mcc="440" mnc="51" apn="mineo.jp" user="mineo@k-opti.com" password="mineo" authtype="2" type="default,ia,mms,supl,hipri,fota,cbs" />
   <apn carrier="nuromobile(A)" mcc="440" mnc="51" apn="so-net.jp" user="nuro" password="nuro" authtype="2" type="default,ia,mms,supl,hipri,fota,cbs" />
   <apn carrier="povo2.0" mcc="440" mnc="51" apn="povo.jp" protocol="IPV4V6" type="default,ia,mms,supl,hipri,fota,cbs" />
-  <apn carrier="UQ mobile" mcc="440" mnc="51" apn="uqmobile.jp" user="uq@uqmobile.jp" password="uq" authtype="2" type="default,ia,mms,supl,hipri" protocol="IPV4V6" roaming_protocol="IPV4V6" mmsc="http://mms.ezweb.ne.jp/MMS" mmsport="80" />
+  <apn carrier="UQ mobile" mcc="440" mnc="51" apn="uqmobile.jp" user="uq@uqmobile.jp" password="uq" authtype="2" type="default,ia,mms,supl,hipri" protocol="IPV4V6" roaming_protocol="IPV4V6" mmsc="http://mms.ezweb.ne.jp/MMS" mmsport="80" mvno_type="gid" mvno_match_data="20" carrier_id="2110" />
   <apn carrier="IMS" mcc="440" mnc="51" apn="ims" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" user_editable="0" user_visible="false" />
   <apn carrier="SKT IA" mcc="450" mnc="05" apn="" type="ia" protocol="IPV4V6" roaming_protocol="IP" />
   <apn carrier="SKT IMS" mcc="450" mnc="05" apn="IMS" type="ims" protocol="IPV4V6" />
