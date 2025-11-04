@@ -80,7 +80,7 @@ function eat()
         echo "Found device"
         if (adb shell getprop ro.lineage.device | grep -q "$LINEAGE_BUILD"); then
             echo "Rebooting to sideload for install"
-            adb reboot sideload-auto-reboot
+            adb reboot sideload
             adb wait-for-sideload
             adb sideload $ZIPPATH
         else
