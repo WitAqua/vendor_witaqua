@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2025 WitAqua
+    SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Strings for PixelPropUtils -->
+    <string name="cert_device">tegu</string>
+    <string name="cert_fp">google/tegu_beta/tegu:16/BP41.250916.010.A1/14281945:user/release-keys</string>
+    <string name="cert_model">Pixel 9a</string>
+    <string name="cert_manufacturer">Google</string>
+    <string name="cert_spl">2025-10-05</string>
+    <string name="cert_sdk">32</string>
+</resources>

@@ -289,6 +289,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     DisableCameraSoundOverlay
 
+# GMS certified props overlay
+PRODUCT_PACKAGES += \
+    CertifiedPropsOverlay
+
 # Translations
 CUSTOM_LOCALES += \
     ast_ES \
@@ -298,6 +302,9 @@ CUSTOM_LOCALES += \
 
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/crowdin/overlay
 PRODUCT_PACKAGE_OVERLAYS += vendor/crowdin/overlay
+
+PRODUCT_COPY_FILES += \
+    vendor/lineage/overlay/rro_packages/config-system_ext.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/overlay/config/config.xml
 
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += vendor/lineage/config/device_framework_matrix.xml
 
