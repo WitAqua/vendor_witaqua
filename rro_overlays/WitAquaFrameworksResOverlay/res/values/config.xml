@@ -12,4 +12,10 @@
     <string-array name="theming_defaults">
         <item>*|VIBRANT|home_wallpaper</item>
     </string-array>
+
+    <!-- If true, the display will be shifted around in ambient mode. -->
+    <bool name="config_enableBurnInProtection">true</bool>
+
+    <!-- AOD wallpaper -->
+    <bool name="config_dozeSupportsAodWallpaper">true</bool>
 </resources>
