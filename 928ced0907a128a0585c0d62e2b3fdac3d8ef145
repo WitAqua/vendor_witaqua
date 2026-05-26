@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82742fb1_e7e26d4d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2026-05-26T14:17:23Z",
+      "side": 1,
+      "message": "一部の端末ではUDFPSのセンサーに表示が被ってしまいます",
+      "revId": "928ced0907a128a0585c0d62e2b3fdac3d8ef145",
+      "serverId": "5a06c6fe-ecb2-400e-bcbd-78c9ba895894"
+    }
+  ]
+}
