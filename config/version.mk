@@ -23,4 +23,6 @@ PRODUCT_PRODUCT_PROPERTIES += \
 WITAQUA_PROCESSOR_INFO ?= Unknown
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-    persist.sys.witaqua_processor_info=$(subst $() ,_,$(WITAQUA_PROCESSOR_INFO))
+    persist.sys.witaqua_processor_info=$(subst $() ,_,$(WITAQUA_PROCESSOR_INFO)) \
+    persist.sys.device_camera_info_rear=$(CUSTOM_CAMERA_REAR_INFO) \
+    persist.sys.device_camera_info_front=$(CUSTOM_CAMERA_FRONT_INFO)
