@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2024 WitAqua
+     SPDX-License-Identifier: Apache-2.0
+-->
+<favorites xmlns:launcher="http://schemas.android.com/apk/res-auto/com.android.launcher3">
+
+    <!-- Hotseat (We use the screen as the position of the item in the hotseat) -->
+    <resolve
+        launcher:container="-101"
+        launcher:screen="0"
+        launcher:x="0"
+        launcher:y="0" >
+        <favorite launcher:uri="#Intent;action=android.intent.action.DIAL;end" />
+        <favorite launcher:uri="tel:123" />
+        <favorite launcher:uri="#Intent;action=android.intent.action.CALL_BUTTON;end" />
+    </resolve>
+
+    <resolve
+        launcher:container="-101"
+        launcher:screen="1"
+        launcher:x="1"
+        launcher:y="0" >
+        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MESSAGING;end" />
+        <favorite launcher:uri="sms:" />
+        <favorite launcher:uri="smsto:" />
+        <favorite launcher:uri="mms:" />
+        <favorite launcher:uri="mmsto:" />
+    </resolve>
+
+    <!-- Browser (Gapps: Google Chrome | Vanilla: Lineage Jelly) -->
+    <resolve
+        launcher:container="-101"
+        launcher:screen="2"
+        launcher:x="2"
+        launcher:y="0" >
+        <favorite
+            launcher:packageName="org.lineageos.jelly"
+            launcher:className="org.lineageos.jelly.MainActivity" />
+        <favorite
+            launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_BROWSER;end" />
+        <favorite
+            launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.BROWSABLE;end" />
+        <favorite launcher:uri="http://www.example.com/" />
+    </resolve>
+
+    <resolve
+        launcher:container="-101"
+        launcher:screen="3"
+        launcher:x="3"
+        launcher:y="0" >
+        <favorite
+            launcher:packageName="org.lineageos.aperture"
+            launcher:className="org.lineageos.aperture.CameraLauncher" />
+        <favorite
+            launcher:packageName="com.android.camera2"
+            launcher:className="com.android.camera.CameraActivity" />
+        <favorite
+            launcher:packageName="com.android.camera"
+            launcher:className="com.android.camera.Camera" />
+        <favorite
+            launcher:packageName="com.oneplus.camera"
+            launcher:className="com.oneplus.camera.OPCameraActivity" />
+        <favorite
+            launcher:packageName="com.oplus.camera"
+            launcher:className="com.oplus.camera.Camera" />
+        <favorite
+            launcher:packageName="com.motorola.camera2"
+            launcher:className="com.motorola.camera.Camera" />
+        <favorite
+            launcher:packageName="com.motorola.camera3"
+            launcher:className="com.motorola.camera.Camera" />
+        <favorite
+            launcher:packageName="com.motorola.camera5"
+            launcher:className="com.motorola.camera.Camera" />
+        <favorite
+            launcher:packageName="com.google.android.GoogleCamera"
+            launcher:className="com.android.camera.activity.CaptureActivity" />
+    </resolve>
+
+    <!-- Screen 0 -->
+
+    <!-- Smartspace Widget -->
+    <appwidget
+        launcher:screen="0"
+        launcher:x="0"
+        launcher:y="0"
+        launcher:spanX="4"
+        launcher:spanY="1"
+        launcher:packageName="com.google.android.googlequicksearchbox"
+        launcher:className="com.google.android.apps.gsa.staticplugins.smartspace.widget.SmartspaceWidgetProvider" />
+
+    <!-- Google Folder -->
+    <folder
+        launcher:title="@string/google_folder_title"
+        launcher:screen="0"
+        launcher:x="0"
+        launcher:y="-1">
+        <favorite
+            launcher:packageName="com.google.android.googlequicksearchbox"
+            launcher:className="com.google.android.googlequicksearchbox.SearchActivity"/>
+        <favorite
+            launcher:packageName="com.google.android.apps.photos"
+            launcher:className="com.google.android.apps.photos.home.HomeActivity"/>
+        <favorite
+            launcher:packageName="com.google.android.keep"
+            launcher:className="com.google.android.apps.keep.ui.activities.BrowseActivity"/>
+        <favorite
+            launcher:packageName="com.google.android.apps.youtube.music"
+            launcher:className="com.google.android.apps.youtube.music.activities.MusicActivity"/>
+        <favorite
+            launcher:packageName="com.google.android.apps.walletnfcrel" 
+            launcher:className="com.google.android.apps.wallet.main.WalletActivity"/>
+    </folder>
+
+    <!-- DeskClock (Gapps: Google DeskClock | Vanilla: AOSP DeskClock) -->
+    <resolve
+        launcher:screen="0"
+        launcher:x="1"
+        launcher:y="-1" >
+        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;action=android.intent.action.SET_ALARM;end" />
+    </resolve>
+
+    <!-- Calendar (Gapps: Google Calendar | Vanilla: Lineage Etar Calendar) -->
+    <resolve
+        launcher:screen="0"
+        launcher:x="2"
+        launcher:y="-1" >
+        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_CALENDAR;end" />
+    </resolve>
+
+    <!-- Play Store -->
+    <resolve
+        launcher:screen="0"
+        launcher:x="3"
+        launcher:y="-1" >
+        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MARKET;end" />
+        <favorite launcher:uri="market://details?id=com.android.launcher" />
+    </resolve>
+
+    <!-- Screen 1 -->
+
+    <!-- Calendar Widget (Gapps) -->
+    <appwidget
+        launcher:screen="1"
+        launcher:x="0"
+        launcher:y="0"
+        launcher:spanX="4"
+        launcher:spanY="2"
+        launcher:packageName="com.google.android.calendar"
+        launcher:className="com.android.calendar.widget.CalendarAppWidgetProvider" />
+
+    <!-- Calendar Widget (Vanilla) -->
+    <appwidget
+        launcher:screen="1"
+        launcher:x="0"
+        launcher:y="0"
+        launcher:spanX="4"
+        launcher:spanY="2"
+        launcher:packageName="org.lineageos.etar"
+        launcher:className="com.android.calendar.widget.CalendarAppWidgetProvider" />
+
+    <!-- Tools Folder -->
+    <folder
+        launcher:title="@string/tools_folder_title"
+        launcher:screen="1"
+        launcher:x="0"
+        launcher:y="-1">
+
+        <favorite
+            launcher:packageName="org.lineageos.eleven"
+            launcher:className="org.lineageos.eleven.ui.activities.HomeActivity" />
+        <favorite
+            launcher:packageName="org.lineageos.recorder"
+            launcher:className="org.lineageos.recorder.RecorderActivity" />
+        <favorite
+            launcher:packageName="com.google.android.apps.recorder"
+            launcher:className="com.google.android.apps.recorder.ui.recordings.MainActivity" />
+        <favorite
+            launcher:packageName="org.lineageos.audiofx"
+            launcher:className="org.lineageos.audiofx.activity.ActivityMusic" />
+        <favorite
+            launcher:packageName="com.android.calculator2"
+            launcher:className="com.android.calculator2.Calculator" />
+        <favorite
+            launcher:packageName="com.google.android.calculator"
+            launcher:className="com.android.calculator2.Calculator" />
+        <favorite
+            launcher:packageName="com.caf.fmradio"
+            launcher:className="com.caf.fmradio.FMRadio" />
+
+    </folder>
+
+    <favorite
+        launcher:packageName="org.lineageos.glimpse"
+        launcher:className="org.lineageos.glimpse.MainActivity"
+        launcher:screen="1"
+        launcher:x="1"
+        launcher:y="-1" />
+
+    <favorite
+        launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_CONTACTS;end"
+        launcher:screen="1"
+        launcher:x="2"
+        launcher:y="-1" />
+
+    <!-- Extra Folder -->
+    <folder
+        launcher:title="@string/extra_folder_title"
+        launcher:screen="1"
+        launcher:x="3"
+        launcher:y="-1">
+
+        <favorite
+            launcher:packageName="jp.ne.paypay.android.app"
+            launcher:className="jp.ne.paypay.android.app.MainActivity" />
+
+        <favorite
+            launcher:packageName="jp.nicovideo.android"
+            launcher:className="jp.nicovideo.android.StartupActivity" />
+
+        <favorite
+            launcher:packageName="jp.naver.line.android"
+            launcher:className="jp.naver.line.android.activity.SplashActivity"/>
+
+    </folder>
+
+    <!-- Screen 2 -->
+
+    <!-- Misc Folder -->
+    <folder
+        launcher:title="@string/misc_folder_title"
+        launcher:screen="2"
+        launcher:x="0"
+        launcher:y="-1">
+
+        <favorite
+            launcher:packageName="org.omnirom.logcat"
+            launcher:className="com.pluscubed.logcat.ui.LogcatActivity" />
+
+    </folder>
+
+    <favorite
+        launcher:packageName="com.android.documentsui"
+        launcher:className="com.android.documentsui.LauncherActivity"
+        launcher:screen="2"
+        launcher:x="2"
+        launcher:y="-1" />
+
+    <favorite
+        launcher:packageName="com.android.settings"
+        launcher:className="com.android.settings.Settings"
+        launcher:screen="2"
+        launcher:x="3"
+        launcher:y="-1" />
+
+</favorites>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2024 WitAqua
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Folder titles -->
+    <string name="tools_folder_title" translatable="false">Tools</string>
+    <string name="communication_folder_title" translatable="false">Communication</string>
+    <string name="misc_folder_title" translatable="false">Misc</string>
+    <string name="extra_folder_title" translatable="false">Extra</string>
+</resources>
