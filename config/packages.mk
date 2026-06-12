@@ -4,6 +4,18 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+# Mind The Gapps
+WITH_GMS ?= false
+ifeq ($(WITH_GMS),true)
+  # We don't want to include gapps in official builds
+  ifeq ($(WITAQUA_BUILD_TYPE),OFFICIAL)
+    $(error Include gapps in official builds are not allowed.)
+  endif
+  PRODUCT_PACKAGES += GoogleConfigOverlay
+  TARGET_GAPPS_ARCH ?= arm64
+  $(call inherit-product, vendor/gapps/$(TARGET_GAPPS_ARCH)/$(TARGET_GAPPS_ARCH)-vendor.mk)
+endif
+
 # Face Unlock
 ifeq ($(TARGET_SUPPORTS_64_BIT_APPS),true)
 PRODUCT_PACKAGES += \
