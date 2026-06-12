@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2024 WitAqua
+     SPDX-License-Identifier: Apache-2.0
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:allowBackup="false"
+    package="tokyo.witaqua.GoogleConfigOverlay">
+    <overlay android:isStatic="true" android:priority="8000" android:targetPackage="android"/>
+
+    <application android:hasCode="false"/>
+</manifest>
