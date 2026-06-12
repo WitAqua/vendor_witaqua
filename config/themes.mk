@@ -7,3 +7,7 @@
 # Icons
 PRODUCT_PACKAGE_OVERLAYS += \
     vendor/witaqua/themes/icons/CustomIcons
+
+# Icon shapes
+PRODUCT_PACKAGES += \
+    IconShapeRoundedRectRoundedOverlay
