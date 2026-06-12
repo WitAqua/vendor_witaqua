@@ -1,6 +1,7 @@
 # WitAqua-ify
 PRODUCT_PACKAGES += \
-	WitAquaFrameworksResOverlay
+	WitAquaFrameworksResOverlay \
+    WitAquaSystemUIResOverlay
 
 # Optional
 PRODUCT_PACKAGES += \
