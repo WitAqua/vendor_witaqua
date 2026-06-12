@@ -11,3 +11,6 @@ PRODUCT_PACKAGE_OVERLAYS += \
 # Icon shapes
 PRODUCT_PACKAGES += \
     IconShapeRoundedRectRoundedOverlay
+
+# Fonts
+$(call inherit-product, external/mejiro/fonts.mk)
