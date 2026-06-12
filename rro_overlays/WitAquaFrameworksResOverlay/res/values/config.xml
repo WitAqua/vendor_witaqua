@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2023 WitAqua
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- The default list of possible CMF Names|Style|ColorSource. This array can be
+         overridden device-specific resources. A wildcard (fallback) must be supplied.
+         Name   - Read from `ro.boot.hardware.color` sysprop. Fallback (*) required.
+         Styles - frameworks/libs/systemui/monet/src/com/android/systemui/monet/Style.java
+         Color  - `home_wallpaper` (for color extraction) or a hexadecimal int (#FFcc99) -->
+    <string-array name="theming_defaults">
+        <item>*|VIBRANT|home_wallpaper</item>
+    </string-array>
+</resources>
