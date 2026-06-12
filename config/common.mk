@@ -3,6 +3,9 @@ PRODUCT_BRAND ?= WitAqua
 # Audio
 include vendor/witaqua/config/audio.mk
 
+# Packages
+include vendor/witaqua/config/packages.mk
+
 # RRO Overlays
 include vendor/witaqua/config/rro_overlays.mk
 
