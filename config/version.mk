@@ -18,3 +18,9 @@ PRODUCT_PRODUCT_PROPERTIES += \
     ro.witaqua.build.version=$(WITAQUA_BUILD_VERSION) \
     ro.witaqua.build.status=$(WITAQUA_BUILD_TYPE) \
     ro.witaqua.maintainer=$(WITAQUA_MAINTAINER)
+
+# Device info
+PROCESSOR_INFO ?= Unknown
+
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    persist.sys.processor_info=$(subst $() ,_,$(PROCESSOR_INFO))
