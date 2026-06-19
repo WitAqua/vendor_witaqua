@@ -16,6 +16,23 @@
       "message": "このファイル自体はどこからのものですか？",
       "revId": "1dcc1d6d52cbc780fdbb469638b1b42ad4caf21b",
       "serverId": "5a06c6fe-ecb2-400e-bcbd-78c9ba895894"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50121b22_242f8ae1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000023
+      },
+      "writtenOn": "2026-06-19T16:48:23Z",
+      "side": 1,
+      "message": "フリー素材のVIPRPGから取得しています。用途が全然違いますが、個人的に結構気に入っている曲なので採用していました。　　https://w.atwiki.jp/viprpg_sozai/pages/34.html",
+      "revId": "1dcc1d6d52cbc780fdbb469638b1b42ad4caf21b",
+      "serverId": "5a06c6fe-ecb2-400e-bcbd-78c9ba895894"
     }
   ]
 }
