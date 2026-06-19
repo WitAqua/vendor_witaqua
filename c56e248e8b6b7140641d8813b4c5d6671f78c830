@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1828272_79d038c9",
+        "filename": "config/version.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2026-06-19T07:32:09Z",
+      "side": 1,
+      "message": "```suggestion\n    persist.sys.device_camera_info_rear\u003d$(CAMERA_REAR_INFO) \\\n    persist.sys.device_camera_info_front\u003d$(CAMERA_FRONT_INFO)\n```",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 68
+      },
+      "revId": "c56e248e8b6b7140641d8813b4c5d6671f78c830",
+      "serverId": "5a06c6fe-ecb2-400e-bcbd-78c9ba895894"
+    }
+  ]
+}
