@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c29cd15f_cbdae50a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2026-06-19T07:16:22Z",
+      "side": 1,
+      "message": "ADB suだけで十分だと思います",
+      "revId": "1a96dcc2b6a564c64a81a703863719d7bbd5b327",
+      "serverId": "5a06c6fe-ecb2-400e-bcbd-78c9ba895894"
+    }
+  ]
+}
