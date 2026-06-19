@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e54b7324_9f55c5ee",
+        "filename": "config/version.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2026-06-19T07:32:05Z",
+      "side": 1,
+      "message": "```suggestion\nPROCESSOR_INFO ?\u003d Unknown\n```",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 22
+      },
+      "revId": "b540af547693729420d83784035fc1c5a5b020b1",
+      "serverId": "5a06c6fe-ecb2-400e-bcbd-78c9ba895894"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29ac134e_5a424f97",
+        "filename": "config/version.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2026-06-19T07:32:05Z",
+      "side": 1,
+      "message": "```suggestion\n    persist.sys.processor_info\u003d$(subst $() ,_,$(PROCESSOR_INFO))\n```",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 80
+      },
+      "revId": "b540af547693729420d83784035fc1c5a5b020b1",
+      "serverId": "5a06c6fe-ecb2-400e-bcbd-78c9ba895894"
+    }
+  ]
+}
