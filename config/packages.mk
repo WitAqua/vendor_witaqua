@@ -30,5 +30,4 @@ endif
 
 PRODUCT_PACKAGES += \
     BtHelper \
-    LMOSystemUIClock \
     XiaomiTWS
