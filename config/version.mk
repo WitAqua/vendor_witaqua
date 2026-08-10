@@ -22,7 +22,7 @@ PRODUCT_PRODUCT_PROPERTIES += \
 # Device info
 PROCESSOR_INFO ?= Unknown
 
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+PRODUCT_PRODUCT_PROPERTIES += \
     persist.sys.processor_info=$(subst $() ,_,$(PROCESSOR_INFO)) \
     persist.sys.device_camera_info_rear=$(CAMERA_REAR_INFO) \
     persist.sys.device_camera_info_front=$(CAMERA_FRONT_INFO)
