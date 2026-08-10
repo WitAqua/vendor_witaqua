@@ -11,7 +11,7 @@ ifeq ($(WITH_GMS),true)
   ifeq ($(WITAQUA_BUILD_TYPE),OFFICIAL)
     $(error Include gapps in official builds are not allowed.)
   endif
-  PRODUCT_PACKAGES += GoogleConfigOverlay
+  PRODUCT_PACKAGES += GoogleConfigWitAquaOverlay
   TARGET_GAPPS_ARCH ?= arm64
   $(call inherit-product, vendor/gapps/$(TARGET_GAPPS_ARCH)/$(TARGET_GAPPS_ARCH)-vendor.mk)
 endif
