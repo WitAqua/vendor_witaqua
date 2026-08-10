@@ -4,7 +4,7 @@
 //
 
 runtime_resource_overlay {
-    name: "GoogleConfigOverlay",
+    name: "GoogleConfigWitAquaOverlay",
     certificate: "platform",
     sdk_version: "current",
     product_specific: true,
