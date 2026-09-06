@@ -33,4 +33,5 @@ endif
 
 PRODUCT_PACKAGES += \
     BtHelper \
+    Matlog \
     XiaomiTWS
