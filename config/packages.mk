@@ -35,3 +35,10 @@ PRODUCT_PACKAGES += \
     BtHelper \
     LMOSystemUIClock \
     XiaomiTWS
+
+# Sony applications name com.sony.device as a required uses-library and
+# PackageManager drops them when it cannot be resolved, so the stub goes
+# everywhere rather than on the sony devices alone - the applications are
+# ported across, and the jar is one empty class.
+PRODUCT_PACKAGES += \
+    com.sony.device
