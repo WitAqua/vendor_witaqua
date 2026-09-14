@@ -34,4 +34,5 @@ endif
 PRODUCT_PACKAGES += \
     BtHelper \
     LMOSystemUIClock \
-    XiaomiTWS
+    XiaomiTWS \
+    com.sony.device
