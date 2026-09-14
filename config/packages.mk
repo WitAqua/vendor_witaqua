@@ -33,4 +33,5 @@ endif
 
 PRODUCT_PACKAGES += \
     BtHelper \
-    XiaomiTWS
+    XiaomiTWS \
+    com.sony.device
