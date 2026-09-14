@@ -18,6 +18,7 @@ EXCLUDE_PATHS=(
     "packages/apps/FaceUnlock"
     "packages/apps/FelicaService"
     "packages/apps/LMOSystemUIClock"
+    "packages/apps/QcomPdInfo"
     "packages/apps/WitAquaMagic"
     "packages/apps/XiaomiTWS"
     "packages/apps/XiaomiTWS/xiaomi-sdk"
