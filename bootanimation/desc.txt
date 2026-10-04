@@ -1,3 +1,4 @@
 c 1 0 part0
-c 0 0 part1
-c 1 0 part2
+f 300 0 part1 23
+f 1 0 part2 23
+p 0 0 part3
