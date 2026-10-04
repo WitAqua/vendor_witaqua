@@ -3,6 +3,9 @@ PRODUCT_BRAND ?= WitAqua
 # Audio
 include vendor/witaqua/config/audio.mk
 
+# Bootanimation
+include vendor/witaqua/config/bootanimation.mk
+
 # Packages
 include vendor/witaqua/config/packages.mk
 

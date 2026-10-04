@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 WitAqua
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Whether there is a boot sounds checkbox -->
+    <bool name="has_boot_sounds">true</bool>
+</resources>
