@@ -10,6 +10,7 @@ UPSTREAM_REMOTE="upstream"
 EXCLUDE_REMOTES=("gitlab")
 EXCLUDE_PATHS=(
     "witaqua/hudson"
+    "witaqua/mirror"
     "witaqua/wiki"
     "witaqua/www"
     "external/bouncycastle"
@@ -18,10 +19,13 @@ EXCLUDE_PATHS=(
     "packages/apps/FaceUnlock"
     "packages/apps/FelicaService"
     "packages/apps/LMOSystemUIClock"
+    "packages/apps/MtkPdInfo"
+    "packages/apps/QcomPdInfo"
     "packages/apps/WitAquaMagic"
     "packages/apps/XiaomiTWS"
     "packages/apps/XiaomiTWS/xiaomi-sdk"
     "prebuilts/custom-sdk"
+    "vendor/certification"
     "vendor/witaqua"
 )
 
