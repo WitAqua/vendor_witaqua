@@ -8,6 +8,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/ringtones,$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones)
 
+# UI
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/ui,$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui)
+
 # 2019 Material product sounds (CC-BY 4.0)
 # Source: https://material.io/design/sound/sound-resources.html
 PRODUCT_COPY_FILES += \
