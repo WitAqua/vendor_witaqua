@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) WitAqua
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Notification scrim: neutral instead of accent1_800 -->
+    <color name="notification_scrim_base">#09111B</color>
+
+    <!-- Used while blur is unavailable (battery saver, early after boot, ...):
+         keep the same neutral look instead of the accent-tinted fallbacks. -->
+    <color name="notification_scrim_fallback">#09111B</color>
+    <color name="shade_panel_fallback">#101318</color>
+</resources>
