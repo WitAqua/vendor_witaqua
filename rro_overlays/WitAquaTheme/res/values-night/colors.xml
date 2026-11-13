@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) WitAqua
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Shade panel (dark): a plain black scrim over the blur instead of the
+         accent-tinted layers, so the wallpaper colors show through. -->
+    <color name="shade_panel_scrim">#66000000</color>
+    <color name="shade_panel_bg">#00000000</color>
+    <color name="shade_panel_fg">#00000000</color>
+</resources>

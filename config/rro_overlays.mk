@@ -1,7 +1,9 @@
 # WitAqua-ify
 PRODUCT_PACKAGES += \
 	GoogleSetupWizardOverlay \
-	WitAquaFrameworksResOverlay
+	WitAquaFrameworksResOverlay \
+	WitAquaTheme \
+	WitAquaThemeSystemUI
 
 # Optional
 PRODUCT_PACKAGES += \
